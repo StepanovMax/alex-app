@@ -9,67 +9,126 @@ export default {
   },
   data() {
     return {
-      test: null,
       selectedBrand: null,
       selectedModel: null,
       selectedComplectation: null,
-      carsBrands: [],
+      carsBrands: brands,
+      carsModels: models,
+      carsComplectations: complectations,
     }
   },
   methods: {
-    getBrands(array) {
-      return array.map(
-        item => item
+    changeCheckedBrands(newValue) {
+      this.carsBrands = this.carsBrands.map(
+        item => {
+          if (item?.slug === newValue?.slug) {
+            item.checked = true
+          } else {
+            item.checked = false
+          }
+          return item
+        }
       )
     },
-    getModels(array, brand) {
-      let newArray = []
+    changeCheckedModels(newValue) {
+      this.carsModels = this.carsModels.map(
+        item => {
+          if (item?.slug === newValue?.slug) {
+            item.checked = true
+          } else {
+            item.checked = false
+          }
+          return item
+        }
+      )
+    },
+    // Filter models depends on selected brand
+    filterModels(brand) {
       if (brand && brand.slug) {
-        newArray = array.filter(
+        this.carsModels = models.filter(
           item => {
+            item.checked = false
             return item.brandSlug === brand.slug
           }
         )
       }
-      return newArray
-    },
-    getComplectations(array, model) {
-      let newArray = []
-      if (model && model.slug) {
-        newArray = array.filter(
-          item => {
-            return item.modelSlug === model.slug
-          }
-        )
-      }
-      return newArray
-    },
-    clearSelectedComplectation() {
-      this.selectedComplectation = null
     },
     clearSelectedModel() {
+      // Clear selected model
       this.selectedModel = null
+      // Uncheck all the model's radio buttons
+      this.carsModels = this.carsModels.map(
+        item => {
+          item.checked = false
+          return item
+        }
+      )
+    },
+    clearCheckedModels() {
+      this.carsModels = this.carsModels.map(
+        item => {
+          item.checked = false
+          return item
+        }
+      )
+    },
+    // Filter complectations depends on selected model
+    filterComplectations(model) {
+      if (model && model.slug) {
+        this.carsComplectations = complectations.filter(
+          item => item.modelSlug === model.slug
+        )
+      }
+    },
+    clearSelectedComplectation() {
+      // Clear selected complectation
+      this.selectedComplectation = null
+    },
+    clearCheckedComplectations() {
+      // Uncheck all the complectation's radio buttons
+      this.carsComplectations = this.carsComplectations.map(
+        item => {
+          item.checked = false
+          return item
+        }
+      )
+    },
+    changeCheckedComplectations(newValue) {
+      this.carsComplectations = this.carsComplectations.map(
+        item => {
+          if (item?.slug === newValue?.slug) {
+            item.checked = true
+          } else {
+            item.checked = false
+          }
+          return item
+        }
+      )
     },
   },
   watch: {
-    selectedBrand() {
+    // Watch the brand and filter models on changes
+    selectedBrand(newValue) {
       this.clearSelectedModel()
+      this.changeCheckedBrands(newValue)
       this.clearSelectedComplectation()
+      this.filterModels(this.selectedBrand)
+      // this.clearCheckedModels()
     },
-    selectedModel() {
+    // Watch the model and filter complectations on changes
+    selectedModel(newValue) {
+      this.changeCheckedModels(newValue)
+      this.clearCheckedComplectations()
       this.clearSelectedComplectation()
+      this.filterComplectations(this.selectedModel)
+    },
+    // Watch the model and filter complectations on changes
+    selectedComplectation(newValue) {
+      this.changeCheckedComplectations(newValue)
     },
   },
   computed: {
-    carsBrands() {
-      return this.getBrands(brands)
-    },
-    carsModels() {
-      return this.getModels(models, this.selectedBrand)
-    },
-    carsComplectations() {
-      return this.getComplectations(complectations, this.selectedModel)
-    },
+    // The case when all of the filters has been selected
     selectedAll() {
       return this.selectedBrand && this.selectedModel && this.selectedComplectation
     },
@@ -116,14 +175,18 @@ export default {
               Модель авто
             </h3>
 
-            <base-radio
-              v-for="(option, key) in carsModels"
-              :option="option"
-              :key="key"
-              :option-index="key"
-              group-name="cars-models"
-              @pick="val => selectedModel = val"
-            />
+            <div
+              v-if="selectedBrand && carsModels"
+            >
+              <base-radio
+                v-for="(option, key) in carsModels"
+                :option="option"
+                :key="key"
+                :option-index="key"
+                group-name="cars-models"
+                @pick="val => selectedModel = val"
+              />
+            </div>
 
           </div>
 
@@ -182,6 +245,24 @@ export default {
                 </span>
               </li>
             </ul>
+
+          </div>
+
+          <div
+            v-if="true"
+          >
+
+            <pre>
+              carsBrands {{ carsBrands }}
+            </pre>
+
+            <pre>
+              carsModels {{ carsModels }}
+            </pre>
+
+            <pre>
+              carsComplectations {{ carsComplectations }}
+            </pre>
 
           </div>
 

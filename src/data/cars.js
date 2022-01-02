@@ -2,37 +2,43 @@ const brands = [
   {
     title: "BMW",
     slug: "bmw",
+    checked: false,
   },
   {
     title: "Mercedes Benz",
     slug: "mercedes-benz",
+    checked: false,
   },
 ]
 
-const models= [
+const models = [
   {
     title: "X3",
     slug: "x3",
     brandSlug: 'bmw',
+    checked: false,
   },
   {
     title: "X4",
     slug: "x4",
     brandSlug: 'bmw',
+    checked: false,
   },
   {
     title: "A class",
     slug: "a-class",
     brandSlug: 'mercedes-benz',
+    checked: false,
   },
   {
     title: "B class",
     slug: "b-class",
     brandSlug: 'mercedes-benz',
+    checked: false,
   },
 ]
 
-const complectations= [
+const complectations = [
   {
     title: "Basic X3",
     slug: "basic",
@@ -41,6 +47,7 @@ const complectations= [
     signaling: false,
     airbags: false,
     airbagsCount: 0,
+    checked: false,
   },
   {
     title: "Premium X3",
@@ -50,6 +57,7 @@ const complectations= [
     signaling: false,
     airbags: true,
     airbagsCount: 1,
+    checked: false,
   },
   {
     title: "Basic X4",
@@ -59,6 +67,7 @@ const complectations= [
     signaling: true,
     airbags: true,
     airbagsCount: 1,
+    checked: false,
   },
   {
     title: "Premium X4",
@@ -68,6 +77,7 @@ const complectations= [
     signaling: true,
     airbags: true,
     airbagsCount: 2,
+    checked: false,
   },
   {
     title: "Basic A Class",
@@ -77,6 +87,7 @@ const complectations= [
     signaling: true,
     airbags: true,
     airbagsCount: 1,
+    checked: false,
   },
   {
     title: "Premium A Class",
@@ -86,6 +97,7 @@ const complectations= [
     signaling: true,
     airbags: true,
     airbagsCount: 2,
+    checked: false,
   },
   {
     title: "Basic B Class",
@@ -95,6 +107,7 @@ const complectations= [
     signaling: true,
     airbags: true,
     airbagsCount: 1,
+    checked: false,
   },
   {
     title: "Premium B Class",
@@ -104,6 +117,7 @@ const complectations= [
     signaling: true,
     airbags: true,
     airbagsCount: 2,
+    checked: false,
   },
 ]
 

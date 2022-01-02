@@ -185,42 +185,6 @@ export default {
 
           </div>
 
-          <div
-            v-if="true"
-          >
-            <div
-              class=""
-            >
-              carsBrands: {{ carsBrands }}
-            </div>
-            <hr>
-            <div
-              class=""
-            >
-              selectedBrand: {{ selectedBrand }}
-            </div>
-            <hr>
-            <div
-              class=""
-            >
-              carsModels: {{ carsModels }}
-            </div>
-            <hr>
-            <div
-              class=""
-            >
-              selectedModel: {{ selectedModel }}
-            </div>
-            <hr>
-            <div
-              class=""
-            >
-              carsComplectations: {{ carsComplectations }}
-            </div>
-            <hr>
-            selectedComplectation: {{ selectedComplectation }}
-          </div>
-
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 <script>
-import { brands, models, complectations } from '@/cars'
-import BaseRadio from './components/base-radio.vue'
+import { brands, models, complectations } from '@/data/cars'
+import BaseRadio from '@/components/base-radio.vue'
 
 export default {
   name: 'CarsFilter',

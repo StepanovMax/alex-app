@@ -1,5 +1,5 @@
 <script>
-import CarsFilter from './CarsFilter.vue'
+import CarsFilter from '@/components/cars-filter.vue'
 
 export default {
   name: 'app',

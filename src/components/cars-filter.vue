@@ -18,8 +18,9 @@ export default {
     }
   },
   methods: {
-    changeCheckedBrands(newValue) {
-      this.carsBrands = this.carsBrands.map(
+    // Set up correct checked state for radio buttons after pick the radio
+    changeCheckedRadio(array, newValue) {
+      return array.map(
         item => {
           if (item?.slug === newValue?.slug) {
             item.checked = true
@@ -30,42 +31,9 @@ export default {
         }
       )
     },
-    changeCheckedModels(newValue) {
-      this.carsModels = this.carsModels.map(
-        item => {
-          if (item?.slug === newValue?.slug) {
-            item.checked = true
-          } else {
-            item.checked = false
-          }
-          return item
-        }
-      )
-    },
-    // Filter models depends on selected brand
-    filterModels(brand) {
-      if (brand && brand.slug) {
-        this.carsModels = models.filter(
-          item => {
-            item.checked = false
-            return item.brandSlug === brand.slug
-          }
-        )
-      }
-    },
-    clearSelectedModel() {
-      // Clear selected model
-      this.selectedModel = null
-      // Uncheck all the model's radio buttons
-      this.carsModels = this.carsModels.map(
-        item => {
-          item.checked = false
-          return item
-        }
-      )
-    },
-    clearCheckedModels() {
-      this.carsModels = this.carsModels.map(
+    // Set all the radio buttons states to false
+    clearAllCheckedStates(array) {
+      return array.map(
         item => {
           item.checked = false
           return item
@@ -73,58 +41,35 @@ export default {
       )
     },
     // Filter complectations depends on selected model
-    filterComplectations(model) {
-      if (model && model.slug) {
-        this.carsComplectations = complectations.filter(
-          item => item.modelSlug === model.slug
+    filterArrayBySelectedItem(array, selectedItem, slugName) {
+      if (selectedItem && selectedItem.slug) {
+        return array.filter(
+          item => item[slugName] === selectedItem.slug
         )
+      } else {
+        return []
       }
-    },
-    clearSelectedComplectation() {
-      // Clear selected complectation
-      this.selectedComplectation = null
-    },
-    clearCheckedComplectations() {
-      // Uncheck all the complectation's radio buttons
-      this.carsComplectations = this.carsComplectations.map(
-        item => {
-          item.checked = false
-          return item
-        }
-      )
-    },
-    changeCheckedComplectations(newValue) {
-      this.carsComplectations = this.carsComplectations.map(
-        item => {
-          if (item?.slug === newValue?.slug) {
-            item.checked = true
-          } else {
-            item.checked = false
-          }
-          return item
-        }
-      )
     },
   },
   watch: {
     // Watch the brand and filter models on changes
     selectedBrand(newValue) {
-      this.clearSelectedModel()
-      this.changeCheckedBrands(newValue)
-      this.clearSelectedComplectation()
-      this.filterModels(this.selectedBrand)
-      // this.clearCheckedModels()
+      this.carsBrands = this.changeCheckedRadio(this.carsBrands, newValue)
+      this.carsModels = this.clearAllCheckedStates(this.carsModels)
+      this.carsModels = this.filterArrayBySelectedItem(models, newValue, 'brandSlug')
+      this.selectedModel = null
+      this.selectedComplectation = null
     },
     // Watch the model and filter complectations on changes
     selectedModel(newValue) {
-      this.changeCheckedModels(newValue)
-      this.clearCheckedComplectations()
-      this.clearSelectedComplectation()
-      this.filterComplectations(this.selectedModel)
+      this.carsModels = this.changeCheckedRadio(this.carsModels, newValue)
+      this.carsComplectations = this.clearAllCheckedStates(this.carsComplectations)
+      this.carsComplectations = this.filterArrayBySelectedItem(complectations, newValue, 'modelSlug')
+      this.selectedComplectation = null
     },
     // Watch the model and filter complectations on changes
     selectedComplectation(newValue) {
-      this.changeCheckedComplectations(newValue)
+      this.carsComplectations = this.changeCheckedRadio(this.carsComplectations, newValue)
     },
   },
   computed: {
@@ -153,8 +98,8 @@ export default {
         <h2 class="badge bg-primary text-wrap">
           Фильтр
         </h2>
-        <form>
 
+        <form>
           <div class="mb-3">
             <h3 class="h5">
               Марка авто
@@ -248,8 +193,12 @@ export default {
 
           </div>
 
+        <div v-else>
+          <p>Нужно заполнить все поля фильтра</p>
+        </div>
+
           <div
-            v-if="true"
+            v-if="false"
           >
 
             <pre>

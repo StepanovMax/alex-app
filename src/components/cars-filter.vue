@@ -86,22 +86,23 @@ export default {
   <div class="container">
     <div class="row">
       <div class="col col-12">
-        <div class="mb-10">
-          <h1 class="h1">
+        <div class="mb-4">
+          <h1 class="h1 fs-1 fw-bold">
             Фильтр автомобилей
           </h1>
         </div>
       </div>
     </div>
+
     <div class="row">
-      <div class="col col-3">
-        <h2 class="badge bg-primary text-wrap">
+      <div class="col-lg-3">
+        <h2 class="fs-3 fw-bolder mb-3">
           Фильтр
         </h2>
 
         <form>
           <div class="mb-3">
-            <h3 class="h5">
+            <h3 class="h5 fs-5">
               Марка авто
             </h3>
 
@@ -116,7 +117,7 @@ export default {
           </div>
 
           <div class="mb-3">
-            <h3 class="h5">
+            <h3 class="h5 fs-5">
               Модель авто
             </h3>
 
@@ -139,7 +140,7 @@ export default {
             class="mb-3"
             v-if="selectedBrand"
           >
-            <h3 class="h5">
+            <h3 class="h5 fs-5">
               Комплектация авто
             </h3>
 
@@ -159,9 +160,9 @@ export default {
         </form>
       </div>
 
-      <div class="col col-9">
+      <div class="col-lg-9">
         <div class="">
-          <h2 class="badge bg-primary text-wrap">
+          <h2 class="fs-3 fw-bolder mb-3">
             Комплектация
           </h2>
 
@@ -170,7 +171,7 @@ export default {
             v-if="selectedAll"
           >
 
-            <h2 class="">
+            <h2 class="fs-3">
               {{ selectedComplectation.title }}
             </h2>
 
@@ -194,7 +195,7 @@ export default {
           </div>
 
         <div v-else>
-          <p>Нужно заполнить все поля фильтра</p>
+          <p class="fs-5">Нужно заполнить все поля фильтра</p>
         </div>
 
           <div
